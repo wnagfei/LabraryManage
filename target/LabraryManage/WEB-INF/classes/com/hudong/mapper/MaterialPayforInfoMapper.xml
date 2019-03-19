@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hudong.mapper.MaterialPayforInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hudong.model.MaterialPayforInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="material_no" property="materialNo" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="pay_for_reason" property="payForReason" jdbcType="VARCHAR" />
+    <result column="pay_for_money" property="payForMoney" jdbcType="VARCHAR" />
+    <result column="pay_for_owner" property="payForOwner" jdbcType="VARCHAR" />
+    <result column="pay_for_remark" property="payForRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, material_no, material_name, pay_for_reason, pay_for_money, pay_for_owner, pay_for_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hudong.model.MaterialPayforInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from material_payfor_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from material_payfor_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from material_payfor_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hudong.model.MaterialPayforInfoExample" >
+    delete from material_payfor_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hudong.model.MaterialPayforInfo" >
+    insert into material_payfor_info (material_no, material_name,
+      pay_for_reason, pay_for_money, pay_for_owner, 
+      pay_for_remark)
+    values ( #{materialNo,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR},
+      #{payForReason,jdbcType=VARCHAR}, #{payForMoney,jdbcType=VARCHAR}, #{payForOwner,jdbcType=VARCHAR}, 
+      #{payForRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hudong.model.MaterialPayforInfo" >
+    insert into material_payfor_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialNo != null" >
+        material_no,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="payForReason != null" >
+        pay_for_reason,
+      </if>
+      <if test="payForMoney != null" >
+        pay_for_money,
+      </if>
+      <if test="payForOwner != null" >
+        pay_for_owner,
+      </if>
+      <if test="payForRemark != null" >
+        pay_for_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="materialNo != null" >
+        #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="payForReason != null" >
+        #{payForReason,jdbcType=VARCHAR},
+      </if>
+      <if test="payForMoney != null" >
+        #{payForMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="payForOwner != null" >
+        #{payForOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="payForRemark != null" >
+        #{payForRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hudong.model.MaterialPayforInfoExample" resultType="java.lang.Integer" >
+    select count(*) from material_payfor_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update material_payfor_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.materialNo != null" >
+        material_no = #{record.materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialName != null" >
+        material_name = #{record.materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payForReason != null" >
+        pay_for_reason = #{record.payForReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payForMoney != null" >
+        pay_for_money = #{record.payForMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payForOwner != null" >
+        pay_for_owner = #{record.payForOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payForRemark != null" >
+        pay_for_remark = #{record.payForRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update material_payfor_info
+    set id = #{record.id,jdbcType=INTEGER},
+      material_no = #{record.materialNo,jdbcType=VARCHAR},
+      material_name = #{record.materialName,jdbcType=VARCHAR},
+      pay_for_reason = #{record.payForReason,jdbcType=VARCHAR},
+      pay_for_money = #{record.payForMoney,jdbcType=VARCHAR},
+      pay_for_owner = #{record.payForOwner,jdbcType=VARCHAR},
+      pay_for_remark = #{record.payForRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hudong.model.MaterialPayforInfo" >
+    update material_payfor_info
+    <set >
+      <if test="materialNo != null" >
+        material_no = #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="payForReason != null" >
+        pay_for_reason = #{payForReason,jdbcType=VARCHAR},
+      </if>
+      <if test="payForMoney != null" >
+        pay_for_money = #{payForMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="payForOwner != null" >
+        pay_for_owner = #{payForOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="payForRemark != null" >
+        pay_for_remark = #{payForRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hudong.model.MaterialPayforInfo" >
+    update material_payfor_info
+    set material_no = #{materialNo,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      pay_for_reason = #{payForReason,jdbcType=VARCHAR},
+      pay_for_money = #{payForMoney,jdbcType=VARCHAR},
+      pay_for_owner = #{payForOwner,jdbcType=VARCHAR},
+      pay_for_remark = #{payForRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

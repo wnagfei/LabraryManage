@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hudong.mapper.MaterialInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hudong.model.MaterialInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="material_no" property="materialNo" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="material_category" property="materialCategory" jdbcType="VARCHAR" />
+    <result column="material_owner" property="materialOwner" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="material_order" property="materialOrder" jdbcType="VARCHAR" />
+    <result column="material_adress" property="materialAdress" jdbcType="VARCHAR" />
+    <result column="material_remark" property="materialRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, material_no, material_name, material_category, material_owner, status, material_order, 
+    material_adress, material_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hudong.model.MaterialInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from material_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from material_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from material_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hudong.model.MaterialInfoExample" >
+    delete from material_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hudong.model.MaterialInfo" >
+    insert into material_info ( material_no, material_name,
+      material_category, material_owner, status, 
+      material_order, material_adress, material_remark
+      )
+    values (#{materialNo,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR},
+      #{materialCategory,jdbcType=VARCHAR}, #{materialOwner,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{materialOrder,jdbcType=VARCHAR}, #{materialAdress,jdbcType=VARCHAR}, #{materialRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hudong.model.MaterialInfo" >
+    insert into material_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialNo != null" >
+        material_no,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="materialCategory != null" >
+        material_category,
+      </if>
+      <if test="materialOwner != null" >
+        material_owner,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="materialOrder != null" >
+        material_order,
+      </if>
+      <if test="materialAdress != null" >
+        material_adress,
+      </if>
+      <if test="materialRemark != null" >
+        material_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="materialNo != null" >
+        #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCategory != null" >
+        #{materialCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="materialOwner != null" >
+        #{materialOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="materialOrder != null" >
+        #{materialOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="materialAdress != null" >
+        #{materialAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="materialRemark != null" >
+        #{materialRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hudong.model.MaterialInfoExample" resultType="java.lang.Integer" >
+    select count(*) from material_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update material_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.materialNo != null" >
+        material_no = #{record.materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialName != null" >
+        material_name = #{record.materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialCategory != null" >
+        material_category = #{record.materialCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialOwner != null" >
+        material_owner = #{record.materialOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialOrder != null" >
+        material_order = #{record.materialOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialAdress != null" >
+        material_adress = #{record.materialAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialRemark != null" >
+        material_remark = #{record.materialRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update material_info
+    set id = #{record.id,jdbcType=INTEGER},
+      material_no = #{record.materialNo,jdbcType=VARCHAR},
+      material_name = #{record.materialName,jdbcType=VARCHAR},
+      material_category = #{record.materialCategory,jdbcType=VARCHAR},
+      material_owner = #{record.materialOwner,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      material_order = #{record.materialOrder,jdbcType=VARCHAR},
+      material_adress = #{record.materialAdress,jdbcType=VARCHAR},
+      material_remark = #{record.materialRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hudong.model.MaterialInfo" >
+    update material_info
+    <set >
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCategory != null" >
+        material_category = #{materialCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="materialOwner != null" >
+        material_owner = #{materialOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="materialOrder != null" >
+        material_order = #{materialOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="materialAdress != null" >
+        material_adress = #{materialAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="materialRemark != null" >
+        material_remark = #{materialRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where material_no = #{materialNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hudong.model.MaterialInfo" >
+    update material_info
+    set
+      material_name = #{materialName,jdbcType=VARCHAR},
+      material_category = #{materialCategory,jdbcType=VARCHAR},
+      material_owner = #{materialOwner,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      material_order = #{materialOrder,jdbcType=VARCHAR},
+      material_adress = #{materialAdress,jdbcType=VARCHAR},
+      material_remark = #{materialRemark,jdbcType=VARCHAR}
+    where material_no = #{materialNo,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getList" resultMap="BaseResultMap">
+    select * from material_info
+  </select>
+</mapper>

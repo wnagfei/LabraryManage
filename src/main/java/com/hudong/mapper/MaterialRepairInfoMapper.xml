@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hudong.mapper.MaterialRepairInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hudong.model.MaterialRepairInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="material_no" property="materialNo" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="repair_reason" property="repairReason" jdbcType="VARCHAR" />
+    <result column="repair_return_date" property="repairReturnDate" jdbcType="VARCHAR" />
+    <result column="repair_remark" property="repairRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, material_no, material_name, repair_reason, repair_return_date, repair_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hudong.model.MaterialRepairInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from material_repair_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from material_repair_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from material_repair_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hudong.model.MaterialRepairInfoExample" >
+    delete from material_repair_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hudong.model.MaterialRepairInfo" >
+    insert into material_repair_info (material_no, material_name,
+      repair_reason, repair_return_date, repair_remark
+      )
+    values (#{materialNo,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR},
+      #{repairReason,jdbcType=VARCHAR}, #{repairReturnDate,jdbcType=VARCHAR}, #{repairRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hudong.model.MaterialRepairInfo" >
+    insert into material_repair_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialNo != null" >
+        material_no,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="repairReason != null" >
+        repair_reason,
+      </if>
+      <if test="repairReturnDate != null" >
+        repair_return_date,
+      </if>
+      <if test="repairRemark != null" >
+        repair_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="materialNo != null" >
+        #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="repairReason != null" >
+        #{repairReason,jdbcType=VARCHAR},
+      </if>
+      <if test="repairReturnDate != null" >
+        #{repairReturnDate,jdbcType=VARCHAR},
+      </if>
+      <if test="repairRemark != null" >
+        #{repairRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hudong.model.MaterialRepairInfoExample" resultType="java.lang.Integer" >
+    select count(*) from material_repair_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update material_repair_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.materialNo != null" >
+        material_no = #{record.materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialName != null" >
+        material_name = #{record.materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairReason != null" >
+        repair_reason = #{record.repairReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairReturnDate != null" >
+        repair_return_date = #{record.repairReturnDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repairRemark != null" >
+        repair_remark = #{record.repairRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update material_repair_info
+    set id = #{record.id,jdbcType=INTEGER},
+      material_no = #{record.materialNo,jdbcType=VARCHAR},
+      material_name = #{record.materialName,jdbcType=VARCHAR},
+      repair_reason = #{record.repairReason,jdbcType=VARCHAR},
+      repair_return_date = #{record.repairReturnDate,jdbcType=VARCHAR},
+      repair_remark = #{record.repairRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hudong.model.MaterialRepairInfo" >
+    update material_repair_info
+    <set >
+      <if test="materialNo != null" >
+        material_no = #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="repairReason != null" >
+        repair_reason = #{repairReason,jdbcType=VARCHAR},
+      </if>
+      <if test="repairReturnDate != null" >
+        repair_return_date = #{repairReturnDate,jdbcType=VARCHAR},
+      </if>
+      <if test="repairRemark != null" >
+        repair_remark = #{repairRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hudong.model.MaterialRepairInfo" >
+    update material_repair_info
+    set material_no = #{materialNo,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      repair_reason = #{repairReason,jdbcType=VARCHAR},
+      repair_return_date = #{repairReturnDate,jdbcType=VARCHAR},
+      repair_remark = #{repairRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
